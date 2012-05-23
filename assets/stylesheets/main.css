@@ -91,8 +91,18 @@ header {
   #graph #social {
     float: right;
     height: 20px;
-    width: 48px;
-    overflow: hidden; }
+    position: relative;
+    z-index: 1000; }
+    #graph #social .facebook,
+    #graph #social .twitter {
+      height: 20px;
+      width: 48px;
+      display: block;
+      float: left;
+      overflow: hidden; }
+    #graph #social .twitter {
+      margin-left: 10px;
+      width: 56px; }
   #graph #chart {
     width: 700px;
     height: 200px;

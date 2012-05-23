@@ -127,8 +127,22 @@ header {
   #social {
   	float: right;
   	height: 20px;
-  	width: 48px;
-  	overflow: hidden;
+  	position: relative;
+  	z-index: 1000;
+
+  	.facebook,
+  	.twitter {
+	  	height: 20px;
+	  	width: 48px;
+	  	display: block;
+	  	float: left;
+	  	overflow: hidden;
+  	}
+
+  	.twitter {
+  		margin-left: 10px;
+  		width: 56px;
+  	}
   }
   
   #chart {
