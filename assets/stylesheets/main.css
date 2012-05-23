@@ -86,7 +86,13 @@ header {
   top: 0; }
   #graph h2 {
     color: #899bc1;
+    float: left;
     font-size: 13px; }
+  #graph #social {
+    float: right;
+    height: 20px;
+    width: 48px;
+    overflow: hidden; }
   #graph #chart {
     width: 700px;
     height: 200px;

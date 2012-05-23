@@ -117,9 +117,18 @@ header {
 
   h2 {
   	color: $color-alternative;
+  	float: left;
+
   	font: {
   		size: 13px;
   	}
+  }
+
+  #social {
+  	float: right;
+  	height: 20px;
+  	width: 48px;
+  	overflow: hidden;
   }
   
   #chart {
