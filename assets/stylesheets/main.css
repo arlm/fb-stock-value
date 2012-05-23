@@ -40,7 +40,7 @@ header {
     font-weight: bold;
     float: right;
     margin-top: 6px;
-    color: rgba(255, 255, 255, 0.4);
+    color: #899bc1;
     -webkit-opacity: 0;
     -moz-opacity: 0;
     opacity: 0;
@@ -72,7 +72,7 @@ header {
       font-size: 13px; }
       header #current .change em {
         font-style: normal;
-        color: rgba(255, 255, 255, 0.4); }
+        color: #899bc1; }
       header #current .change span {
         display: block;
         padding-left: 30px; }
@@ -85,6 +85,7 @@ header {
   left: 0;
   top: 0; }
   #graph h2 {
+    color: #899bc1;
     font-size: 13px; }
   #graph #chart {
     width: 700px;
@@ -94,7 +95,7 @@ header {
 
 footer {
   padding-bottom: 70px;
-  color: rgba(255, 255, 255, 0.4); }
+  color: #899bc1; }
   footer .awwwwkwardddd {
     float: left; }
   footer .copy {
