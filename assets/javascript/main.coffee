@@ -4,7 +4,7 @@ jQuery ($) ->
     changePercent = data[0].cp
     current = data[0].l
     $("#current div.value span").html current
-    $("title").html "$" + current + " - Facebook Stock Value"
+    $("title").html "$#{current} - Facebook Stock Value"
     if change.indexOf("+") >= 0
       $(".change").addClass("up")
       $(".change").removeClass("down")
@@ -15,10 +15,10 @@ jQuery ($) ->
       else
         $(".change").addClass("down")
         $(".change").removeClass("up")
-    
+
 
     $("#changeStock").html change
-    $("#changePercent").html changePercent + "%"
+    $("#changePercent").html "#{changePercent}%"
 
   getQuote = ->
     $.ajax
@@ -33,7 +33,7 @@ jQuery ($) ->
 
       dataType: "jsonp"
 
-  
+
 
   getQuote()
   setInterval getQuote, 5000
