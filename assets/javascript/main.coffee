@@ -57,13 +57,20 @@ allDataLoaded = ->
   drawVisualization() if yahooIsLoaded and googleIsLoaded
 
 parseData = (data) ->
-  myResults = data.query.results.quote
   parsedGraphData.push [ "x", "Stock value" ]
   parsedGraphData.push ["2012-05-18 Start", parseFloat("38.00")]
-  myResults = myResults.reverse() if myResults.length > 1
-  _.each myResults, (quote) ->
-    myfloat = parseFloat(quote.Close)
-    parsedGraphData.push [quote.date, myfloat]
+  if data.query.results == null
+    parsedGraphData.push ["2012-05-18", parseFloat("38.23")]
+    parsedGraphData.push ["2012-05-21", parseFloat("34.03")]
+    parsedGraphData.push ["2012-05-22", parseFloat("31.00")]
+    parsedGraphData.push ["2012-05-23", parseFloat("32.00")]
+    # Data is from Yahoo, but looks like it sometimes gives no results. Figure out another source.
+  else
+    myResults = data.query.results.quote unless data.query.results == null
+    myResults = myResults.reverse() if myResults.length > 1
+    _.each myResults, (quote) ->
+      myfloat = parseFloat(quote.Close)
+      parsedGraphData.push [quote.date, myfloat]
 
 
 getChartData = ->
