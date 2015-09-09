@@ -8,7 +8,7 @@ jQuery(function($) {
     changePercent = data[0].cp;
     current = data[0].l;
     $("#current div.value span").html(current);
-    $("title").html("$" + current + " - Facebook Stock Value");
+    $("title").html("$" + current + " - Brazilian Reais verus US Dollars");
     if (change.indexOf("+") >= 0) {
       $(".change").addClass("up");
       $(".change").removeClass("down");
@@ -26,7 +26,7 @@ jQuery(function($) {
   };
   getQuote = function() {
     return $.ajax({
-      url: "http://www.google.com/finance/info?client=ig&q=FB",
+      url: "http://www.google.com/finance/info?client=ig&q=CURRENCY:USDBRL",
       success: function(data) {
         displayQuote(data);
         return $('#current').addClass('show');
@@ -68,39 +68,41 @@ allDataLoaded = function() {
 
 parseData = function(data) {
   var myResults;
-  parsedGraphData.push(["x", "Stock value"]);
-  parsedGraphData.push(["2012-05-18 Start", parseFloat("38.00")]);
+  parsedGraphData.push(["x", "BRL value"]);
   if (data.query.results === null) {
-    parsedGraphData.push(["2012-05-18", parseFloat("38.23")]);
-    parsedGraphData.push(["2012-05-21", parseFloat("34.03")]);
-    parsedGraphData.push(["2012-05-22", parseFloat("31.00")]);
-    return parsedGraphData.push(["2012-05-23", parseFloat("32.00")]);
+	parsedGraphData.push(["2015-01-01 Start", parseFloat("2.6563")]);
+    parsedGraphData.push(["2015-01-02", parseFloat("2.6967")]);
+    parsedGraphData.push(["2015-01-05", parseFloat("2.7284")]);
+    parsedGraphData.push(["2015-01-06", parseFloat("2.7013")]);
+    return parsedGraphData.push(["2015-01-07", parseFloat("2.7000")]);
   } else {
     if (data.query.results !== null) {
-      myResults = data.query.results.quote;
+      myResults = data.query.results.row;
     }
     if (myResults.length > 1) {
       myResults = myResults.reverse();
     }
     return _.each(myResults, function(quote) {
       var myfloat;
-      myfloat = parseFloat(quote.Close);
-      return parsedGraphData.push([quote.date, myfloat]);
+      myfloat = parseFloat(quote.col1);
+      var d = quote.col0.split('/');   
+	  var dateYyyyMmDd = d[2] + '-' + d[1] + '-' + d[0];
+      return parsedGraphData.push([dateYyyyMmDd, myfloat]);
     });
   }
 };
 
 getChartData = function() {
   var chartUrl, limitResults, month, now, quoteSymbol, today;
-  limitResults = "30";
-  quoteSymbol = "FB";
+  limitResults = "40";
+  quoteSymbol = "USDBRL";
   now = new Date();
   month = now.getMonth() + 1;
   if (month.length = 1) {
     month = "0" + month;
   }
   today = (now.getFullYear()) + "-" + month + "-" + (now.getDate());
-  chartUrl = "http://query.yahooapis.com/v1/public/yql?q=select%20date%2C%20Close%20from%20yahoo.finance.historicaldata%20where%20symbol%20%3D%20%22" + quoteSymbol + "%22%20and%20startDate%20%3D%20%222012-05-17%22%20and%20endDate%20%3D%20%22" + today + "%22%20limit%20" + limitResults + "&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
+  chartUrl = "http://query.yahooapis.com/v1/public/yql?q=select%20col0%2Ccol1%20from%20csv%20where%20url%3D'http%3A%2F%2Fwww.ipeadata.gov.br%2FExibeSerie.aspx%3Fmodule%3DM%26serid%3D38590%26oper%3DexportCSVUS'%20%7C%20tail(count%3D" + limitResults + ")%20%7C%20reverse()&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
   return $.ajax({
     url: chartUrl,
     success: yahooLoaded,
@@ -122,6 +124,8 @@ drawVisualization = function() {
     pointSize: 9,
     axisTitlesPosition: "none",
     lineWidth: 3,
+    smoothLine: true,
+    interpolateNulls: true,
     colors: ["#7385b0"],
     legend: {
       position: "none"
